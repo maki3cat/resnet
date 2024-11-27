@@ -29,6 +29,7 @@ import tensorflow.keras.backend as K
 from globalvar import in_folder, out_folder
 
 # TODO: maki, check if this matches our preprocessing of image in report
+# TODO: should use a uniform size like the paper
 def square_crop_image(im: PIL.Image) -> PIL.Image:
     width, height = im.size
     new_size = min(width, height)
