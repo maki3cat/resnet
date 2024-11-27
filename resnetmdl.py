@@ -1,4 +1,5 @@
 from checkenv import *
+from globalvar import *
 
 # TODO: maki, the paper uses 2 cnv blocks and one identity mapping;
 # TODO: maki, this is equation 1, in paper page 3;
@@ -180,7 +181,6 @@ def ResNet50(input_size: Tuple[int,int,int], classes: int) -> Model:
 
 
 # set input image parameters
-image_size = (64, 64)
 channels = 3
 num_classes = 10
 model = ResNet50(input_size = (image_size[1], image_size[0], channels), classes = num_classes)
