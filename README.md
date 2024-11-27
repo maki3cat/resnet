@@ -34,3 +34,11 @@ run `python checkenv.py` and should have the following output:
     - run `python preparedata.py`
     - the preprocessed data will be in the data image 
     - ![env_check](pic/pic-2-data.jpg)
+
+## Model Definition and Training Process
+(please use interactive python to train the model, so that the result can be used to do prediction
+4. resnet model
+    - resnetmdl.py
+
+5. training process
+    - train.py

@@ -70,11 +70,20 @@ model.compile(
 AUTOTUNE = tf.data.AUTOTUNE
 norm_train_ds = norm_train_ds.cache().prefetch(buffer_size=AUTOTUNE)
 norm_val_ds = norm_val_ds.cache().prefetch(buffer_size=AUTOTUNE)
+callbacks = [
+    keras.callbacks.EarlyStopping(
+        monitor="val_loss", # monitor validation loss (that is, the loss computed for the validation holdout)
+        min_delta=1e-2, # "no longer improving" being defined as "an improvement lower than 1e-2"
+        patience=10, # "no longer improving" being further defined as "for at least 10 consecutive epochs"
+        verbose=1
+    )
+]
 import time
 start = time.time()
 model.fit(
     norm_train_ds,
     validation_data=norm_val_ds,
+    callbacks=callbacks,
     epochs = 20)
 
 stop = time.time()
