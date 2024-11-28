@@ -75,8 +75,9 @@ def _augmentation_crop(im: PIL.Image) -> list[PIL.Image]:
 # TODO: maki, or the
 # relies on the global variables: in_folder,im_per_class
 # returns the mean image
-
 import random
+
+# generate middle_img
 def preprocess_data() -> PIL.Image:
     sum_image = None
     total_images = 0
@@ -105,8 +106,9 @@ def preprocess_data() -> PIL.Image:
                     if total_images % 1000 == 0:
                         print(f'preprocessed {total_images} data')
             num_images += 1
-            if num_images >= im_per_class:
-                break
+            # we use all the data instead of strict balanced data
+            # if num_images >= im_per_class:
+            #     break
     # Calculate mean image
     if total_images > 0:
         mean_image = (sum_image / total_images).astype(np.uint8)
@@ -137,12 +139,12 @@ def normalize_data():
                 result_img.save(os.path.join(out, str(num_images)+'.jpg'))
             num_images += 1
 
-# mean_img = preprocess_data()
-mean_img_path = os.path.join(middle_folder, 'mean_img.jpg')
-# mean_img.save(mean_img_path)
-# mean_img_arr = np.array(mean_img)
-with PIL.Image.open(mean_img_path) as mean_img:
-    mean_img_arr = np.array(mean_img)
-    normalize_data()
-
+start = time.time()
+mean_img = preprocess_data()
+mean_img_path = os.path.join(main_folder, 'mean_img.jpg')
+mean_img.save(mean_img_path)
+mean_img_arr = np.array(mean_img)
+normalize_data()
+stop = time.time()
+print(f'Data Augementation and Normalization took: {(stop-start)/60} minutes')
 # after this step, the

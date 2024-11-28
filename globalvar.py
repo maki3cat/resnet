@@ -40,7 +40,7 @@ print("env setup successfully")
 # img_width = 64
 # batch_size = 32
 # image_size = (img_width, img_height)
-augmentation_multiplier = 2
+augmentation_multiplier = 10
 patch_size = 224
 
 # in_folder = os.path.join('..', 'input', 'animals10', 'raw-img')
@@ -49,6 +49,8 @@ patch_size = 224
 in_folder = os.path.join('.', 'data', 'raw-img')
 middle_folder = os.path.join('.', 'data', 'middle-img')
 out_folder = os.path.join('.', 'data', 'cooked-img')
+main_folder = os.path.join('.', 'data')
+
 file_count = []
 total = 0
 for fld in os.listdir(in_folder):
@@ -59,8 +61,10 @@ for fld in os.listdir(in_folder):
     print(f'{crt} contains {image_count} images')
 
 print(f'Raw input {total} num of original data of 10 classes.')
-im_per_class = min(file_count)
-print(f'but we use {im_per_class} for each set to balance input.')
+
+# im_per_class = min(file_count)
+# print(f'but we use {im_per_class} for each set to balance input.')
+
 print(f"in_folder is {in_folder}")
 print(f"middle_folder is {middle_folder}")
 print(f"out_folder is {out_folder}")
