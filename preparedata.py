@@ -57,8 +57,10 @@ def _augmentation_crop(im: PIL.Image) -> list[PIL.Image]:
     if width < patch_size or height < patch_size:
         printf("warining: image too small for 224*224 crop, skip it")
         return []
-    for _ in range(augmentation_multiplier):
-        source = random.choice([im, flipped])
+
+    # im and flipped * 1
+    for i in range(2):
+        source = [im, flipped][i]
         left = random.randint(0, width - patch_size)
         top = random.randint(0, height - patch_size)
         patch = source.crop((left, top, left + patch_size, top + patch_size))

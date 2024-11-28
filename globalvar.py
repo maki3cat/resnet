@@ -13,9 +13,10 @@ import shutil
 
 import tensorflow as tf
 from tensorflow import keras
+from keras import preprocessing
+from preprocessing import image
 
-from tensorflow.keras.preprocessing import image
-from tensorflow.keras import layers
+from keras import layers
 from tensorflow.keras.layers import Input, Add, Dense, Activation, ZeroPadding2D, BatchNormalization, Flatten, Conv2D, AveragePooling2D, MaxPooling2D, GlobalMaxPooling2D
 from tensorflow.keras.initializers import glorot_uniform
 from tensorflow.keras.models import Model, load_model
@@ -40,8 +41,9 @@ print("env setup successfully")
 # img_width = 64
 # batch_size = 32
 # image_size = (img_width, img_height)
-augmentation_multiplier = 10
+augmentation_multiplier = 2
 patch_size = 224
+input_size = [patch_size, patch_size, 3]
 
 # in_folder = os.path.join('..', 'input', 'animals10', 'raw-img')
 # middle_folder = os.path.join('..', 'output', 'animals10', 'middle-img')
