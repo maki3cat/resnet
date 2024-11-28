@@ -40,7 +40,7 @@ print("env setup successfully")
 # img_width = 64
 # batch_size = 32
 # image_size = (img_width, img_height)
-augmentation_multiplier = 1024
+augmentation_multiplier = 10
 patch_size = 224
 
 # in_folder = os.path.join('..', 'input', 'animals10', 'raw-img')
