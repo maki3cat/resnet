@@ -52,6 +52,7 @@ in_folder = os.path.join('.', 'data', 'raw-img')
 middle_folder = os.path.join('.', 'data', 'middle-img')
 out_folder = os.path.join('.', 'data', 'cooked-img')
 main_folder = os.path.join('.', 'data')
+train_folder = out_folder
 
 file_count = []
 total = 0
