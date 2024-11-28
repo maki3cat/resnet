@@ -40,7 +40,7 @@ print("env setup successfully")
 # img_width = 64
 # batch_size = 32
 # image_size = (img_width, img_height)
-augmentation_multiplier = 10
+augmentation_multiplier = 2
 patch_size = 224
 
 # in_folder = os.path.join('..', 'input', 'animals10', 'raw-img')
@@ -63,4 +63,4 @@ im_per_class = min(file_count)
 print(f'but we use {im_per_class} for each set to balance input.')
 print(f"in_folder is {in_folder}")
 print(f"middle_folder is {middle_folder}")
-print(f"out_folder is {middle_folder}")
+print(f"out_folder is {out_folder}")

@@ -133,13 +133,16 @@ def normalize_data():
                 im_arr = np.array(im)
                 result_arr = im_arr - mean_img_arr
                 result_arr = np.clip(result_arr, 0, 255)
-                result_img = Image.fromarray(result_arr)
+                result_img = PIL.Image.fromarray(result_arr)
+                result_img.save(os.path.join(out, str(num_images)+'.jpg'))
             num_images += 1
-            if num_images >= im_per_class:
-                break
 
-mean_img = preprocess_data()
-mean_img.save(os.path.join(middle_folder, 'mean_img.jpg'))
-mean_img_arr = np.array(mean_img)
-normalize_data()
+# mean_img = preprocess_data()
+mean_img_path = os.path.join(middle_folder, 'mean_img.jpg')
+# mean_img.save(mean_img_path)
+# mean_img_arr = np.array(mean_img)
+with PIL.Image.open(mean_img_path) as mean_img:
+    mean_img_arr = np.array(mean_img)
+    normalize_data()
+
 # after this step, the
