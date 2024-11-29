@@ -29,18 +29,20 @@ from tensorflow.keras.applications.imagenet_utils import preprocess_input
 from IPython.display import SVG
 import scipy.misc
 
+from datetime import datetime
 import tensorflow.keras.backend as K
 K.set_image_data_format('channels_last') # can be channels_first or channels_last.
 # K.set_learning_phase(1) # maki: learning phase is deprecated for new Keras
 print("env setup successfully")
 
 # global env
-
 img_height = 128
 img_width = 128
-batch_size = 32
 image_size = (img_width, img_height)
 total_class = 10
+
+batch_size_18 = 32
+batch_size_34 = 64
 
 augmentation_multiplier = 2
 patch_size = 224 # used for data augmentation
@@ -53,7 +55,6 @@ in_folder = os.path.join('.', 'data', 'raw-img')
 middle_folder = os.path.join('.', 'data', 'middle-img')
 out_folder = os.path.join('.', 'data', 'cooked-img')
 main_folder = os.path.join('.', 'data')
-train_folder = out_folder
 train_folder = out_folder
 
 file_count = []
