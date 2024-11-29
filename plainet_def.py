@@ -1,6 +1,3 @@
-from tensorflow.keras.layers import Input, Conv2D, BatchNormalization, Activation, MaxPooling2D, GlobalAveragePooling2D, Dense
-from tensorflow.keras.models import Model
-from tensorflow.keras.initializers import glorot_uniform
 from globalvar import *
 
 def add_conv_block(X, filters, kernel_size, strides=(1,1), layer_num=None):

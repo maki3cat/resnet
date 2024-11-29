@@ -17,7 +17,7 @@ model18.compile(
 
 import time
 start = time.time()
-history18 = model18.fit(
+history18 = model_plainet_18.fit(
     norm_train_ds18,
     validation_data=norm_val_ds18,
     callbacks=callbacks,
@@ -31,14 +31,14 @@ model18.save(f'./maki{timestamp}_model_plainet_18.keras')
 
 # MODEL 34
 model34 = model_plainet_34
-print(f'Current Training Model is {plainet_model_34.name}')
+print(f'Current Training Model is {model_plainet_34.name}')
 model34.compile(
     optimizer='adam', # optimizer
     loss='categorical_crossentropy', # loss function to optimize 
     metrics=['accuracy'] # metrics to monitor
 )
 
-history34 = model34.fit(
+history34 = model_plainet_34.fit(
     norm_train_ds34,
     validation_data=norm_val_ds34,
     callbacks=callbacks,
