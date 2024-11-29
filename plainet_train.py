@@ -9,7 +9,7 @@ train_ds = tf.keras.preprocessing.image_dataset_from_directory(
     validation_split = 0.2,
     subset="training",
     label_mode='categorical', # default mode is 'int' label, but we want one-hot encoded labels (e.g. for categorical_crossentropy loss)
-    seed=123,
+    seed=100,
     image_size=(img_height, img_width),
     batch_size=batch_size
 )
@@ -19,7 +19,7 @@ val_ds = tf.keras.preprocessing.image_dataset_from_directory(
     validation_split=0.2,
     subset="validation",
     label_mode='categorical',
-    seed=123,
+    seed=100,
     image_size=(img_height, img_width),
     batch_size=batch_size
 )
@@ -42,7 +42,7 @@ print(np.min(first_image), np.max(first_image))
 
 # PART-B: TRAINING OF THE MODEL
 model = plainet_18
-print(f'Current Training Model is {plain net 18}.')
+print(f'Current Training Model is plain net 18.')
 
 model.compile(
     optimizer='adam', # optimizer
@@ -63,7 +63,7 @@ callbacks = [
 ]
 import time
 start = time.time()
-model.fit(
+history = model.fit(
     norm_train_ds,
     validation_data=norm_val_ds,
     callbacks=callbacks,

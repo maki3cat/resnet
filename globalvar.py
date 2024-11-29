@@ -13,8 +13,7 @@ import shutil
 
 import tensorflow as tf
 from tensorflow import keras
-from keras import preprocessing
-from preprocessing import image
+from keras.preprocessing import image
 
 from keras import layers
 from tensorflow.keras.layers import Input, Add, Dense, Activation, ZeroPadding2D, BatchNormalization, Flatten, Conv2D, AveragePooling2D, MaxPooling2D, GlobalMaxPooling2D
@@ -37,13 +36,15 @@ print("env setup successfully")
 
 # global env
 
-# img_height = 64
-# img_width = 64
-# batch_size = 32
-# image_size = (img_width, img_height)
+img_height = 128
+img_width = 128
+batch_size = 32
+image_size = (img_width, img_height)
+total_class = 10
+
 augmentation_multiplier = 2
-patch_size = 224
-input_size = [patch_size, patch_size, 3]
+patch_size = 224 # used for data augmentation
+input_size = (patch_size, patch_size, 3)
 
 # in_folder = os.path.join('..', 'input', 'animals10', 'raw-img')
 # middle_folder = os.path.join('..', 'output', 'animals10', 'middle-img')
@@ -52,6 +53,7 @@ in_folder = os.path.join('.', 'data', 'raw-img')
 middle_folder = os.path.join('.', 'data', 'middle-img')
 out_folder = os.path.join('.', 'data', 'cooked-img')
 main_folder = os.path.join('.', 'data')
+train_folder = out_folder
 train_folder = out_folder
 
 file_count = []
@@ -71,3 +73,4 @@ print(f'Raw input {total} num of original data of 10 classes.')
 print(f"in_folder is {in_folder}")
 print(f"middle_folder is {middle_folder}")
 print(f"out_folder is {out_folder}")
+print(f"train_folder is {train_folder}")

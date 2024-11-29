@@ -1,101 +1,73 @@
+from tensorflow.keras.layers import Input, Conv2D, BatchNormalization, Activation, MaxPooling2D, GlobalAveragePooling2D, Dense
+from tensorflow.keras.models import Model
+from tensorflow.keras.initializers import glorot_uniform
 from globalvar import *
-from tensorflow.keras import layers, models
 
-# initial input is 224*224*3channel RGB
-# paper requires: filter doubles when feature map is halved to preserved complexity
-# This is an example:
-# def plain_net_cnn_18layer(input_shape: Tuple[int, int, int] = input_size) -> Model:
-#     model = models.Sequential()
-#     # conv1: l1
-#     # (7x7, 64 filters) with stride 2, output 112*112
-#     model.add(layers.Conv2D(64, (7, 7), activation='relu', padding='same', strides=(2, 2), input_shape=input_shape))
-#
-#     # conv2_x:
-#     # layers l2 - l5, max pooling has no parameters, not a layer
-#     # Max pooling layer with stride 2, downsample by 2
-#     model.add(layers.MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
-#     model.add(layers.Conv2D(64, (3, 3), activation='relu', padding='same', strides=(1, 1)))
-#     model.add(layers.Conv2D(64, (3, 3), activation='relu', padding='same', strides=(1, 1)))
-#     model.add(layers.Conv2D(64, (3, 3), activation='relu', padding='same', strides=(1, 1)))
-#     model.add(layers.Conv2D(64, (3, 3), activation='relu', padding='same', strides=(1, 1)))
-#
-#     # conv3_x: conv3_x (2 x [3x3, 128]) - Downsample by 2
-#     # layers: l6 - l9
-#     model.add(layers.Conv2D(128, (3, 3), activation='relu', padding='same', strides=(2, 2)))
-#     model.add(layers.Conv2D(128, (3, 3), activation='relu', padding='same', strides=(1, 1)))
-#     model.add(layers.Conv2D(128, (3, 3), activation='relu', padding='same', strides=(1, 1)))
-#     model.add(layers.Conv2D(128, (3, 3), activation='relu', padding='same', strides=(1, 1)))
-#
-#     # Layer 3: conv4_x (2 x [3x3, 256]) - Downsample by 2
-#     # layers: l10 - l13
-#     model.add(layers.Conv2D(256, (3, 3), activation='relu', padding='same', strides=(2, 2)))
-#     model.add(layers.Conv2D(256, (3, 3), activation='relu', padding='same', strides=(1, 1)))
-#     model.add(layers.Conv2D(256, (3, 3), activation='relu', padding='same', strides=(1, 1)))
-#     model.add(layers.Conv2D(256, (3, 3), activation='relu', padding='same', strides=(1, 1)))
-#
-#     # Layer 4: conv5_x (2 x [3x3, 512]) - No more downsampling, just maintaining size
-#     # layers: l14 - l17
-#     model.add(layers.Conv2D(512, (3, 3), activation='relu', padding='same', strides=(1, 1)))
-#     model.add(layers.Conv2D(512, (3, 3), activation='relu', padding='same', strides=(1, 1)))
-#     model.add(layers.Conv2D(512, (3, 3), activation='relu', padding='same', strides=(1, 1)))
-#     model.add(layers.Conv2D(512, (3, 3), activation='relu', padding='same', strides=(1, 1)))
-#
-#     # layers: l19, the Fully Connected Layers
-#     model.add(layers.Flatten())
-#     model.add(layers.Dense(10, activation='softmax'))  # Output layer for 10 classes
-#     return model
+def add_conv_block(X, filters, kernel_size, strides=(1,1), layer_num=None):
+    conv_name = f'conv_{layer_num}' if layer_num else 'conv'
+    bn_name = f'bn_{layer_num}' if layer_num else 'bn'
+    X = Conv2D(filters=filters, kernel_size=kernel_size,
+               strides=strides, padding='same', 
+               kernel_initializer=glorot_uniform(seed=0),
+               name=conv_name)(X)
+    X = BatchNormalization(axis=3, name=bn_name)(X)
+    X = Activation('relu')(X)
+    return X
 
 def gen_plainet_model(
         model_name: str = 'plain_net',
-        input_shape: Tuple[int, int, int] = input_size,
+        input_shape: tuple[int, int, int] = input_size,  # Assuming this is your input_size
         conv2_factor: int = 2, conv3_factor: int = 2,
-        conv4_factor: int = 2, conv5_factor: int = 2) -> Model:
+        conv4_factor: int = 2, conv5_factor: int = 2,
+        total_class: int = 10) -> Model:
 
-    model = models.Sequential()
+    # Input tensor
+    inputs = Input(shape=input_shape)
+    X = inputs
 
     # conv1: 1 layer
-    model.add(layers.Conv2D(64, (7, 7), activation='relu', padding='same', strides=(2, 2), input_shape=input_shape))
-    model.add(layers.MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+    X = add_conv_block(X, 64, (7,7), (2,2), layer_num=1)
+    X = MaxPooling2D(pool_size=(2, 2), strides=(2, 2))(X)
     total_count = 1
 
     # conv2_x: conv2_layers
     cur_count = 2*conv2_factor
     total_count += cur_count
-
-    for _ in range(cur_count):
-        model.add(layers.Conv2D(64, (3, 3), activation='relu', padding='same', strides=(1, 1)))
+    for i in range(cur_count):
+        X = add_conv_block(X, 64, (3,3), layer_num=f'2_{i+1}')
 
     # conv3_x: 1 layer for downsampling, conv3_layers
     cur_count = 2*conv3_factor
     total_count += cur_count
-
-    model.add(layers.Conv2D(128, (3, 3), activation='relu', padding='same', strides=(2, 2)))
-    for _ in range(cur_count-1):
-        model.add(layers.Conv2D(128, (3, 3), activation='relu', padding='same', strides=(1, 1)))
+    X = add_conv_block(X, 128, (3,3), (2,2), layer_num='3_1')
+    for i in range(cur_count-1):
+        X = add_conv_block(X, 128, (3,3), layer_num=f'3_{i+2}')
 
     # conv4_x: 1 layer for downsampling, conv4_layers
     cur_count = 2*conv4_factor
     total_count += cur_count
-
-    model.add(layers.Conv2D(256, (3, 3), activation='relu', padding='same', strides=(2, 2)))
-    for _ in range(cur_count-1):
-        model.add(layers.Conv2D(256, (3, 3), activation='relu', padding='same', strides=(1, 1)))
+    X = add_conv_block(X, 256, (3,3), (2, 2), layer_num='4_1')
+    for i in range(cur_count-1):
+        X = add_conv_block(X, 256, (3,3), layer_num=f'4_{i+2}')
 
     # conv5_x: conv5_layers (no downsampling)
     cur_count = 2*conv5_factor
     total_count += cur_count
-    for _ in range(cur_count):
-        model.add(layers.Conv2D(512, (3, 3), activation='relu', padding='same', strides=(1, 1)))
+    for i in range(cur_count):
+        X = add_conv_block(X, 512, (3,3), layer_num=f'5_{i+1}')
 
-    # Flatten and output layer
-    # Global Average Pooling layer (no parameters, not a layer)
-    model.add(layers.GlobalAveragePooling2D())
-    # 1000-way fully connected layer with softmax
-    model.add(layers.Dense(1000, activation='softmax'))
+    # Global Average Pooling layer
+    X = GlobalAveragePooling2D()(X)
+    # Output layer
+    outputs = Dense(total_class, activation='softmax')(X)
     total_count += 1
 
-    print(f'this model has layers {total_count}')
+    # Create model
+    model = Model(inputs=inputs, outputs=outputs, name=model_name)
+
+    print(f'The model {model_name} has {total_count} layers')
     return model
 
-plainet_18 = gen_plainet_model(model_name='plain_net_18')
-plainet_34 = gen_plainet_model('plain_net_34', input_size, 3, 4, 6, 3)
+# Usage
+plainet_model_18 = gen_plainet_model('plain_net_18')
+plainet_model_34 = gen_plainet_model('plain_net_34',input_size, 3, 4, 6, 3)
