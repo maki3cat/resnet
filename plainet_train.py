@@ -41,10 +41,10 @@ print(np.min(first_image), np.max(first_image))
 
 
 # PART-B: TRAINING OF THE MODEL
-model = plainet_18
-print(f'Current Training Model is plain net 18.')
+model18 = model_plainet_18
+print(f'Current Training model18 is plain net 18.')
 
-model.compile(
+model18.compile(
     optimizer='adam', # optimizer
     loss='categorical_crossentropy', # loss function to optimize 
     metrics=['accuracy'] # metrics to monitor
@@ -63,7 +63,7 @@ callbacks = [
 ]
 import time
 start = time.time()
-history = model.fit(
+history18 = model18.fit(
     norm_train_ds,
     validation_data=norm_val_ds,
     callbacks=callbacks,

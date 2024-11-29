@@ -7,7 +7,7 @@ def add_conv_block(X, filters, kernel_size, strides=(1,1), layer_num=None):
     conv_name = f'conv_{layer_num}' if layer_num else 'conv'
     bn_name = f'bn_{layer_num}' if layer_num else 'bn'
     X = Conv2D(filters=filters, kernel_size=kernel_size,
-               strides=strides, padding='same', 
+               strides=strides, padding='same',
                kernel_initializer=glorot_uniform(seed=0),
                name=conv_name)(X)
     X = BatchNormalization(axis=3, name=bn_name)(X)
@@ -68,6 +68,5 @@ def gen_plainet_model(
     print(f'The model {model_name} has {total_count} layers')
     return model
 
-# Usage
-plainet_model_18 = gen_plainet_model('plain_net_18')
-plainet_model_34 = gen_plainet_model('plain_net_34',input_size, 3, 4, 6, 3)
+model_plainet_18 = gen_plainet_model('plain_net_18')
+model_plainet_34 = gen_plainet_model('plain_net_34',input_size, 3, 4, 6, 3)
