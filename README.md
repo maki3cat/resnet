@@ -1,7 +1,17 @@
 
-## Report Link
+# REPORT QUICK LOOK
 
-[docs of the project](https://docs.google.com/document/d/1nRsXoV5Iscx5vBJ4m6PW8BhzffM8paUp0kCJNxe5bLs/edit?tab=t.0)
+We can see
+- with resnet 34 layer model is at least as same as or even a bit better than 18 layer;
+- while with plain cnn, - 34 layer model is way worse than 18 layer;
+- all reports are limited to insufficiency of data input.
+
+<div style="display: flex; justify-content: space-between;">
+  <img src="report/resnet_i64_b3264.jpg" alt="resnet" style="width: 48%;">
+  <img src="report/plainet_i64_b3264.jpg" alt="plainet" style="width: 48%;">
+</div>
+
+# HOW TO SETUP ENV
 
 ## Env Setup
 
