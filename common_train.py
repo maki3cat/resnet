@@ -1,6 +1,7 @@
 from globalvar import *
 from plainet_def import *
 
+class_names = []
 
 def split_ds_training(batch_size):
     data_dir = pathlib.Path(train_folder)
@@ -23,9 +24,7 @@ def split_ds_training(batch_size):
         image_size=(img_height, img_width),
         batch_size=batch_size
     )
-    class_names = train_ds.class_names
-    print("Class names:", class_names)
-
+    class_names.extend(train_ds.class_names)
     # Create normalization layer
     normalization_layer = tf.keras.Sequential([
         tf.keras.layers.Rescaling(1./255)
@@ -59,3 +58,5 @@ callbacks = [
         verbose=1
     )
 ]
+print("Class names:", class_names)
+

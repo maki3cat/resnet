@@ -6,10 +6,10 @@ from visualization import *
 current_time = datetime.now()
 
 # MODEL 18
-model18 = model_plainet_18
-print(f'Current Training model18 is plain net 18.')
+plainet18 = model_plainet_18
+print(f'Current Training plainet18 is plain net 18.')
 
-model18.compile(
+plainet18.compile(
     optimizer='adam', # optimizer
     loss='categorical_crossentropy', # loss function to optimize 
     metrics=['accuracy'] # metrics to monitor
@@ -26,13 +26,13 @@ stop = time.time()
 print(f'Training took: {(stop-start)/60} minutes')
 
 timestamp = current_time.strftime("%m%d_%H%M")
-model18.save(f'./maki{timestamp}_model_plainet_18.keras')
+plainet18.save(f'./maki{timestamp}_model_plainet_18.keras')
 
 
 # MODEL 34
-model34 = model_plainet_34
+plainet34 = model_plainet_34
 print(f'Current Training Model is {model_plainet_34.name}')
-model34.compile(
+plainet34.compile(
     optimizer='adam', # optimizer
     loss='categorical_crossentropy', # loss function to optimize 
     metrics=['accuracy'] # metrics to monitor
@@ -47,6 +47,5 @@ history34 = model_plainet_34.fit(
 stop = time.time()
 print(f'Training took: {(stop-start)/60} minutes')
 
-model34.save(f'./maki{timestamp}_model_plainet_34.keras')
-
-plot_histories(history18, history34, ['plain_net_18', 'plain_net_34'])
+plainet34.save(f'./maki{timestamp}_model_plainet_34.keras')
+plot_histories_err(history18, history34, ['plain_cnn_18', 'plain_cnn_34'])

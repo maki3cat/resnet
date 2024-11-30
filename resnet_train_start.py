@@ -1,4 +1,3 @@
-
 from globalvar import *
 from plainet_def import *
 from common_train import *
@@ -32,15 +31,15 @@ resnet18.save(f'./maki{timestamp}_model_resnet_18.keras')
 
 
 # resnet 34
-model34 = model_resnet_34
+resnet34 = model_resnet_34
 print(f'Current Training Model is {model_resnet_34.name}')
-model34.compile(
+resnet34.compile(
     optimizer='adam', # optimizer
     loss='categorical_crossentropy', # loss function to optimize 
     metrics=['accuracy'] # metrics to monitor
 )
 
-history_resnet34 = model34.fit(
+history_resnet34 = resnet34.fit(
     norm_train_ds34,
     validation_data=norm_val_ds34,
     callbacks=callbacks,
@@ -49,6 +48,5 @@ history_resnet34 = model34.fit(
 stop = time.time()
 print(f'Training took: {(stop-start)/60} minutes')
 
-model34.save(f'./maki{timestamp}_model_resnet_34.keras')
-
-plot_histories(history_resnet18, history_resnet34, ['resnet_18', 'resnet_34'])
+resnet34.save(f'./maki{timestamp}_model_resnet_34.keras')
+plot_histories_err(history_resnet18, history_resnet34, ['resnet_18', 'resnet_34'])
