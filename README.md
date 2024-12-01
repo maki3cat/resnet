@@ -1,54 +1,27 @@
 
-# REPORT QUICK LOOK
+### Repo Introduction
 
-We can see
-- with resnet 34 layer model is at least as same as or even a bit better than 18 layer;
-- while with plain cnn, - 34 layer model is way worse than 18 layer;
-- all reports are limited to insufficiency of data input.
+This repo implements experiment between ResNet model and Plain CNN model which is described in the paper of  *Deep Residual Learning for Image Recognition*.
 
+The implementation is straight-forward and beginner-friendly. Python files are organized into the standard sequential steps of learning:
+ i. data augmentation
+ ii. model definition of ResNet and Plain CNN using `Keras`
+ iii. training scripts
+ iv. automatic model analysis
+ v. prediction examples
+ 
+ ### Quick Peeks
+
+(1) For Plain CNN, 34 layer is worse than its 18 layer version. While for ResNet, 34 layer is better. And comparably speaking, ResNet is way better than Plain CNN models for both 18 layer model and 34 layer model.
 <div style="display: flex; justify-content: space-between;">
-  <img src="report/resnet_i64_b3264.jpg" alt="resnet" style="width: 48%;">
-  <img src="report/plainet_i64_b3264.jpg" alt="plainet" style="width: 48%;">
+  <img src="pic/expr-1-plainet.png" alt="plainet" style="width: 45%;">
+  <img src="pic/expr-1-resnet.png" alt="resnet" style="width: 45%;">
+</div>
+<div style="display: flex; justify-content: center;">
+  <img src="pic/expr-1-compare.png" alt="resnet" style="width: 60%;">
 </div>
 
-# HOW TO SETUP ENV
-
-## Env Setup
-
-### 1) activate virtual env
-- Option-1) setup the resnet coding env from scrath
-    - `python3.11 -m venv ml_venv`
-    - (there is no need to change system python version, but the project requires python3.11)
-
-- Option-2) enter the resnet coding env again
-    - `source ml_venv/bin/activate`
-
-### 2) install python libs
-- install/update dependent libs, use `pip install -r requirements.txt`
-- after `pip install somenew package`, use `pip freeze > requirements.txt` to upgrade
-
-
-### 3) check if everything is correct
-run `python checkenv.py` and should have the following output:
-![env_check](pic/pic-1-env.jpg)
-
-## Data Preparation
-1. download data
-    - download the [dataset](https://www.kaggle.com/datasets/alessiocorrado99/animals10)
-    - put it in data directory of the project (data is not included in the git)
-2. check data
-    - run `python checkdata.py` to peek into the data
-    - an elephant and some picture shapes will be printed
-    - ![env_check](pic/pic-1-data.jpg)
-3. preprocess data to avoid overfitting, etc
-    - run `python preparedata.py`
-    - the preprocessed data will be in the data image 
-    - ![env_check](pic/pic-2-data.jpg)
-
-## Model Definition and Training Process
-(please use interactive python to train the model, so that the result can be used to do prediction
-4. resnet model
-    - resnetmdl.py
-
-5. training process
-    - train.py
+(2) Some predictions for unseen data.
+<div style="display: flex; justify-content: center;">
+  <img src="pic/predictions.jpg" alt="resnet" style="width: 80%;">
+</div>
