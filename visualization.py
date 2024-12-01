@@ -54,5 +54,3 @@ def plot_val_err(history1, history2, history3, history4,labels, start_epoch=1):
     plt.legend()
     plt.grid(True)
     plt.show()
-
-plot_val_err(history_resnet18, history_resnet34, history18, history34, ['resnet_18', 'resnet_34','plain_net_18', 'plain_net_34'], 1)

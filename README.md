@@ -1,7 +1,9 @@
 
+## Summary
+
 ### Repo Introduction
 
-This repo implements experiment between ResNet model and Plain CNN model which is described in the paper of  *Deep Residual Learning for Image Recognition*.
+This repo implements experiment between **ResNet** model and **Plain CNN model** which is described in the paper of  *Deep Residual Learning for Image Recognition*.
 
 The implementation is straight-forward and beginner-friendly. Python files are organized into the standard sequential steps of learning:
  i. data augmentation
@@ -25,3 +27,7 @@ The implementation is straight-forward and beginner-friendly. Python files are o
 <div style="display: flex; justify-content: center;">
   <img src="pic/predictions.jpg" alt="resnet" style="width: 80%;">
 </div>
+
+ ## Repo and Model Explanation
+
+ ### Data Augmentation

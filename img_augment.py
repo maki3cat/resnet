@@ -42,7 +42,7 @@ def _crop_gen(im: PIL.Image) -> list[PIL.Image]:
     flipped = im.transpose(PIL.Image.FLIP_LEFT_RIGHT)
     width, height = im.size
     if width < patch_size or height < patch_size:
-        printf("warining: image too small for 224*224 crop, skip it")
+        print("warining: image too small for 224*224 crop, skip it")
         return []
     # im and flipped * 1
     for i in range(augmentation_multiplier):
