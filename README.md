@@ -16,12 +16,13 @@ The implementation is straight-forward and beginner-friendly. Python files are o
  
  ### Quick Peeks
 
-(0) Sampling from training dataset.
+(0) What does training data look like:
 <div style="display: flex; justify-content: center;">
   <img src="pic/cooked-img-sample.jpg" alt="resnet" style="width: 70%;">
 </div>
 
-(1) For Plain CNN, 34 layer is worse than its 18 layer version. While for ResNet, 34 layer is better. And comparably speaking, ResNet is way better than Plain CNN models for both 18 layer model and 34 layer model.
+(1) Model accuracy obtained in our experiment:
+For Plain CNN, 34 layer is worse than its 18 layer version. While for ResNet, 34 layer is better. And comparably speaking, ResNet is way better than Plain CNN models for both 18 layer model and 34 layer model.
 <div style="display: flex; justify-content: space-between;">
   <img src="pic/expr-1-plainet.png" alt="plainet" style="width: 45%;">
   <img src="pic/expr-1-resnet.png" alt="resnet" style="width: 45%;">
@@ -30,7 +31,7 @@ The implementation is straight-forward and beginner-friendly. Python files are o
   <img src="pic/expr-1-compare.png" alt="resnet" style="width: 60%;">
 </div>
 
-(2) Some predictions for unseen data.
+(2) Some predictions for unseen data:
 <div style="display: flex; justify-content: center;">
   <img src="pic/predictions.jpg" alt="resnet" style="width: 70%;">
 </div>
