@@ -8,7 +8,7 @@ import tensorflow as tf
 from config import BATCH_SIZE_18, BATCH_SIZE_34
 from resnet_def import model_resnet_18, model_resnet_34
 from plainet_def import model_plainet_18, model_plainet_34
-from common_train import training_callback, split_ds_training
+from train_common import training_callback, split_ds_training
 from visualization import plot_histories_err, plot_val_err
 
 current_time = datetime.now()
