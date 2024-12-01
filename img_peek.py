@@ -1,3 +1,5 @@
+"""print samples of dataset"""
+
 import os
 import random
 from PIL import Image
@@ -5,7 +7,7 @@ import matplotlib.pyplot as plt
 
 # Define the main directory and subdirectories
 main_dir = 'data/cooked-img'
-subdirs = ['cane', 'cavallo', 'elefante', 'farfalla', 'gallina', 
+subdirs = ['cane', 'cavallo', 'elefante', 'farfalla', 'gallina',
            'gatto', 'mucca', 'pecora', 'ragno', 'scoiattolo']
 
 # Function to get random images from subdirectories

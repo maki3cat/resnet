@@ -1,4 +1,11 @@
-from globalvar import *
+
+import os
+import random
+import pathlib
+import numpy as np
+import PIL.Image
+import tensorflow as tf
+from config import in_folder, out_folder, resized_data_folder, PATCH_SIZE, AUGMENT_MULTIPLIER
 
 # from paper[1]; 3.4 Implementation paragraph 1;
 # the image is resized with its shorter side randomly sampled in [256,480] for scale augmentation
@@ -41,27 +48,27 @@ def _crop_gen(im: PIL.Image) -> list[PIL.Image]:
     result = []
     flipped = im.transpose(PIL.Image.FLIP_LEFT_RIGHT)
     width, height = im.size
-    if width < patch_size or height < patch_size:
+    if width < PATCH_SIZE or height < PATCH_SIZE:
         print("warining: image too small for 224*224 crop, skip it")
         return []
     # im and flipped * 1
-    for i in range(augmentation_multiplier):
+    for i in range(AUGMENT_MULTIPLIER):
         source = [im, flipped][i%2]
-        left = random.randint(0, width - patch_size)
-        top = random.randint(0, height - patch_size)
-        patch = source.crop((left, top, left + patch_size, top + patch_size))
+        left = random.randint(0, width - PATCH_SIZE)
+        top = random.randint(0, height - PATCH_SIZE)
+        patch = source.crop((left, top, left + PATCH_SIZE, top + PATCH_SIZE))
         result.append(patch)
     return result
 
 # start from resized-img
 def crop_gen_all_data():
     total = 0
-    in_folder = resized_data_folder
-    for fld in os.listdir(in_folder):
+    _in = resized_data_folder
+    for fld in os.listdir(_in):
         out = os.path.join(out_folder, fld)
         if not os.path.exists(out):
             os.makedirs(out)
-        fld_path = pathlib.Path(os.path.join(in_folder, fld))
+        fld_path = pathlib.Path(os.path.join(_in, fld))
         img_id = 0
         for file in list(fld_path.glob('*')):
             if (total % 2000) == 0:

@@ -1,6 +1,18 @@
-from globalvar import *
+"""Visualization module for plotting model training histories."""
+
+import matplotlib as plt
+
 
 def plot_histories_err(history1, history2, labels, start_epoch=1):
+    """
+    Plot both trainning and testing error rates for two model histories.
+
+    Args:
+        history1 (History): Training history of the first model.
+        history2 (History): Training history of the second model.
+        labels (list): names for the two models.
+        start_epoch (int): Starting epoch for the plot (default: 1).
+    """
     plt.figure(figsize=(12, 6))
     start_index = start_epoch - 1
     epochs1 = range(start_epoch, len(history1.history['accuracy']) + 1)
@@ -27,6 +39,17 @@ def plot_histories_err(history1, history2, labels, start_epoch=1):
     plt.show()
 
 def plot_val_err(history1, history2, history3, history4,labels, start_epoch=1):
+    """
+    Plot validation error rates for four model histories.
+
+    Args:
+        history1 (History): Training history of the first model.
+        history2 (History): Training history of the second model.
+        history3 (History): Training history of the third model.
+        history4 (History): Training history of the fourth model.
+        labels (list): names for the four models.
+        start_epoch (int): Starting epoch for the plot (default: 1).
+    """
     plt.figure(figsize=(12, 6))
     start_index = start_epoch - 1
     epochs1 = range(start_epoch, len(history1.history['accuracy']) + 1)

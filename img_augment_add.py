@@ -1,13 +1,18 @@
-from globalvar import *
+"""Module for additional image augmentation techniques that have not been integrated."""
+
+import numpy as np
+import PIL.Image
+from config import PATCH_SIZE
 
 # from paper[2] 4.1;
-# function that takes an PIL.Image in and laters the intensities of the RGB channels, 
-# specifically perform PCA on the set of RGB pixel values throughout the ImageNet training set 
-# to each training image, add multiples of the found principal components, 
+# function that takes an PIL.Image in and laters the intensities of the RGB channels,
+# specifically perform PCA on the set of RGB pixel values throughout the ImageNet training set
+# to each training image, add multiples of the found principal components,
 # with magnitudes proportional to the corresponding eigenvalues times a random variable drawn
 # from a Gaussian with mean zero and standard deviation 0.1
-def _augmentation_rgb(image: PIL.Image) -> PIL.Image:
-    img_array = np.array(image)
+# TODO: this is not applied
+def _augmentation_rgb(im: PIL.Image) -> PIL.Image:
+    img_array = np.array(im)
     # print(f'img size of {img_array.shape}')
     pixels = img_array.reshape(-1, 3)
     # perform PCA on RGB pixels
@@ -26,7 +31,7 @@ def _augmentation_rgb(image: PIL.Image) -> PIL.Image:
     # ensure in the valid range [0, 255]
     altered_pixels = np.clip(altered_pixels, 0, 255).astype(np.uint8)
     # shape back
-    altered_img_array = altered_pixels.reshape(patch_size, patch_size, 3)
+    altered_img_array = altered_pixels.reshape(PATCH_SIZE, PATCH_SIZE, 3)
     # altered_img_array = altered_pixels.reshape(img_array.shape)
     altered_image = PIL.Image.fromarray(altered_img_array)
     return altered_image
